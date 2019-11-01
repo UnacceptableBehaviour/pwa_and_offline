@@ -58,3 +58,55 @@ server.js                               # ** app started with 'node server.js'
                                         # various setup inc portNo
 watch.json
 ```
+
+## REFERENCES
+### Chrome Devtools Manual  
+https://developers.google.com/web/tools/chrome-devtools?utm_source=dcc&utm_medium=redirect&utm_campaign=2018Q2  
+
+### Service Worker (25m) watch @x2
+https://www.youtube.com/watch?v=DtuJ55tmjps&t=41s  
+
+### WorkBox - Homepage
+https://developers.google.com/web/tools/workbox  
+
+### WorkBox - A Developer Toolkit for Service Workers and Beyond - podcast
+https://www.youtube.com/watch?v=1oVFwgK4tp0  
+
+### Progressive Web App Training (36 vids - 5-10m each)
+https://www.youtube.com/watch?v=psB_Pjwhbxo&list=PLNYkxOF6rcIB2xHBZ7opgc2Mv009X87Hh  
+
+### DarkSky API - u: c@g p: pwaexperiment  
+https://darksky.net/dev/register  
+secret key: 9ade75dc9397ce3454d1762b7b1530b0  
+https://api.darksky.net/forecast/9ade75dc9397ce3454d1762b7b1530b0/37.8267,-122.4233  
+Forecast Request:  https://api.darksky.net/forecast/[key]/[latitude],[longitude]  
+DarkSky Docs: https://darksky.net/dev/docs  
+API Usage: https://darksky.net/dev/account  
+Libs langs:https://darksky.net/dev/docs/libraries  
+Hfd: 52.0564° N, 2.7160° W  
+Report for Hereford: https://api.darksky.net/forecast/9ade75dc9397ce3454d1762b7b1530b0/52.0564,2.7160  
+Return a big ol’ JSON object with weather report  
+
+### GitHub Help
+https://help.github.com/articles/about-pull-requests  
+
+### package.json NPM info file, app name version and packages metadate
+https://nodejs.org/en/knowledge/getting-started/npm/what-is-the-file-package-json/  
+
+### npm install
+https://www.stackchief.com/tutorials/npm%20install%20%7C%20how%20it%20works  
+
+### Node.js best practices (GOLD! Scaling, multiprocess, asynch logging, alsorts!)
+https://www.codementor.io/mattgoldspink/nodejs-best-practices-du1086jja  
+
+### Manifests
+https://developers.google.com/web/fundamentals/web-app-manifest  
+
+### Dev SSL certificate - Express(node) - Not working
+https://flaviocopes.com/express-https-self-signed-certificate/  
+
+### Intro to Service Workers
+https://developers.google.com/web/fundamentals/primers/service-workers  
+
+### Promises - basics
+https://developers.google.com/web/fundamentals/primers/promises#promise-terminology  
