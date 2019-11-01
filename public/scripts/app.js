@@ -145,7 +145,10 @@ function renderForecast(card, data) {
  * @param {string} coords Location object to.
  * @return {Object} The weather forecast, if the request fails, return null.
  */
+
+
 function getForecastFromNetwork(coords) {
+  //return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/9ade75dc9397ce3454d1762b7b1530b0/${coords}`)
   return fetch(`/forecast/${coords}`)
       .then((response) => {
         return response.json();
