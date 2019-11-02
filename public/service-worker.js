@@ -22,11 +22,25 @@ const CACHE_NAME = 'static-cache-v1';
 
 // CODELAB: Add list of files to cache here.
 const FILES_TO_CACHE = [
+  '/offline.html',
 ];
+
+// self refers to this file? <- CHECK
 
 self.addEventListener('install', (evt) => {
   console.log('[ServiceWorker] Install');
   // CODELAB: Precache static resources here.
+    evt.waitUntil(  // method takes a promise and uses it to know how long installation takes, and whether it succeeded or not.
+            
+        // promise                       /- - - 'static-cache-v1' cache from open
+        caches.open(CACHE_NAME).then((cache) => {
+          
+          console.log('[ServiceWorker] Pre-caching offline page');
+          //                          / - - list of files to be preloaded to cache
+          return cache.addAll(FILES_TO_CACHE);
+        
+        })
+    );  
 
   self.skipWaiting();
 });

@@ -166,7 +166,10 @@ function startServer() {
   const app = express();
 
   // Redirect HTTP to HTTPS,
-  app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
+  app.use(redirectToHTTPS([/localhost:(\d{5})/], [], 301));
+  
+  //works on serving machine but not android device
+  //app.use(redirectToHTTPS([/192.168.0.8:(\d{5})/], [], 301));
 
   // Logging for each request
   app.use((req, resp, next) => {

@@ -209,17 +209,22 @@
       </div>
     </div>
   </div>
-
+  <!-- Date and time library?? - luxon -->
   <script src="/scripts/luxon-1.11.4.js"></script>
   <script src="/scripts/app.js"></script>
   <!-- CODELAB: Add the install script here -->
   <script>
     // CODELAB: Register service worker.
     if ('serviceWorker' in navigator) {
+      
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
             .then((reg) => {
-              console.log('Service worker registered.', reg);
+              console.log('SW registered - scope:', reg.scope);
+              // ^.. scope: http://localhost:50099/
+              //       =   /pwa_and_offline/public/
+              // serving the public folder
+              console.log('Service worker registered.', reg);              
             });
       });
     }
