@@ -23,6 +23,7 @@ const CACHE_NAME = 'static-cache-v1';
 // CODELAB: Add list of files to cache here.
 const FILES_TO_CACHE = [
   '/offline.html',
+  '/images/sroll.png',
 ];
 
 // self refers to this file? <- CHECK
@@ -49,6 +50,21 @@ self.addEventListener('activate', (evt) => {
   console.log('[ServiceWorker] Activate');
   // CODELAB: Remove previous cached data from disk.
 
+  evt.waitUntil(    //       / - - - cache entries keys
+      caches.keys().then((keyList) => {
+        //                         / - - for each key - run anonumous ()
+        return Promise.all( keyList.map( (key) => {
+          if (key !== CACHE_NAME) {  // < NO diff for each key?
+            
+            console.log('[ServiceWorker] Removing old cache', key);
+            return caches.delete(key);
+          
+          }
+        }));
+      
+      })
+  );  
+  
   self.clients.claim();
 });
 
