@@ -90,10 +90,16 @@ self.addEventListener('fetch', (evt) => {
     return;
   }
   evt.respondWith(
-      fetch(evt.request)
-          .catch(() => {
+      fetch(evt.request) // try and get item from network
+          .catch(() => { // catch network error
+                          // needed to set a BP to see these!
+                          console.log("[fertch ERROR]", evt.request.url);
+                          // http://http://localhost:50099/turkey.html   < URL entered - available in this scope
+                          
                           return caches.open(CACHE_NAME)
                               .then((cache) => {
+                                // presumably match request.url - cache shell
+                                console.log("[fertch ERROR]", evt.request.url);
                                 return cache.match('offline.html');
                               });
                         })
