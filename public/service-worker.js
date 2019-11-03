@@ -82,7 +82,7 @@ self.addEventListener('activate', (evt) => {
         //                         / - - for each key - run anonumous () (1 entry: static-cache-v1)
         return Promise.all( keyList.map( (key) => {
           //if (key !== CACHE_NAME) {  // < NO diff for each key? key refers to the WHOLE cache
-          if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) // dont delete data cache
+          if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {// dont delete data cache
             
             console.log('[ServiceWorker **] Removing old cache', key);
             // key == static-cache-v1: [ServiceWorker **] Removing old cache static-cache-v1
