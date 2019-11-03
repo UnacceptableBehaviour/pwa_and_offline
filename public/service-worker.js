@@ -36,7 +36,7 @@ self.addEventListener('install', (evt) => {
         // promise                       /- - - 'static-cache-v1' cache from open
         caches.open(CACHE_NAME).then((cache) => {
           
-          console.log('[ServiceWorker] Pre-caching offline page');
+          console.log('[ServiceWorker] Pre-caching offline page', cache);
           //                          / - - list of files to be preloaded to cache
           return cache.addAll(FILES_TO_CACHE);
         
@@ -50,16 +50,28 @@ self.addEventListener('activate', (evt) => {
   console.log('[ServiceWorker] Activate');
   // CODELAB: Remove previous cached data from disk.
 
-  evt.waitUntil(    //       / - - - cache entries keys
+  evt.waitUntil(    //       / - - - cache entries keys (cache names not name of things in cache)
       caches.keys().then((keyList) => {
-        //                         / - - for each key - run anonumous ()
+        console.log(`[SeWk] key list: ${keyList}`);
+              // [SeWk] key list: static-cache-v1
+              // change name and reload static-cache-v1 to static-cache-v2
+              // [SeWk] key list: static-cache-v1,static-cache-v2
+        
+        //                         / - - for each key - run anonumous () (1 entry: static-cache-v1)
         return Promise.all( keyList.map( (key) => {
           if (key !== CACHE_NAME) {  // < NO diff for each key?
             
-            console.log('[ServiceWorker] Removing old cache', key);
+            console.log('[ServiceWorker **] Removing old cache', key);
+            // key == static-cache-v1: [ServiceWorker **] Removing old cache static-cache-v1
+            
             return caches.delete(key);
           
+          } else {
+            console.log(`[SeWk] else key: ${key}`);
+            // key == static-cache-v2: [SeWk] else key: static-cache-v2
           }
+          
+          
         }));
       
       })
@@ -69,7 +81,22 @@ self.addEventListener('activate', (evt) => {
 });
 
 self.addEventListener('fetch', (evt) => {
-  console.log('[ServiceWorker] Fetch', evt.request.url);
+  console.log('[ServiceWorker - - ] Fetch', evt.request.url);
+  console.log('[SeWk] evt.request', evt.request);
   // CODELAB: Add fetch event handler here.
+  
+  if (evt.request.mode !== 'navigate') {
+    // Not a page navigation, bail.
+    return;
+  }
+  evt.respondWith(
+      fetch(evt.request)
+          .catch(() => {
+                          return caches.open(CACHE_NAME)
+                              .then((cache) => {
+                                return cache.match('offline.html');
+                              });
+                        })
+  );
 
 });
