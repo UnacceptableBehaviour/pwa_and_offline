@@ -48,8 +48,12 @@ const FILES_TO_CACHE = [
   '/images/wind.svg',  
 ];
 
-// self refers to this file? <- CHECK
+console.log('- - - - - - - - - - - - - - - - - - - - - - - - CU S\nCHECK UNDERSTANDING');
+console.log(`self. is ${typeof(self)}`);
+console.log(self); // ServiceWorkerGlobalScope
+console.log('- - - - - - - - - - - - - - - - - - - - - - - - CU E /');
 
+// self refers to ServiceWorkerGlobalScope
 self.addEventListener('install', (evt) => {
   console.log('[ServiceWorker] Install');
   // CODELAB: Precache static resources here.

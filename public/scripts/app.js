@@ -235,6 +235,10 @@ function updateData() {
     // Get the forecast data from the network.
     getForecastFromNetwork(location.geo)
         .then((forecast) => {
+          console.log(location);
+          console.log(card);
+          console.log(forecast);
+          
           renderForecast(card, forecast);            // < re-render card w/ data - cache
         });
   });

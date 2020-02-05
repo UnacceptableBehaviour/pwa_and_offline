@@ -20,7 +20,12 @@
 
 const express = require('express');
 const fetch = require('node-fetch');
-const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
+//const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
+
+//https_test
+const https = require("https"),
+fs = require("fs");
+
 
 // CODELAB: Change this to add a delay (ms) before the server responds.
 const FORECAST_DELAY = 0;
@@ -198,4 +203,30 @@ function startServer() {
   });
 }
 
-startServer();
+//https_test
+function startSecureServer(){
+  const options = {
+    key: fs.readFileSync("./scratch/server.key"),
+    cert: fs.readFileSync("./scratch/server.crt")
+  };
+  
+  const portNoHttps = 8080;
+  const portNoHttp = 8000;
+  
+  console.log(`STARTING https server port ${portNoHttps}...`);
+  
+  const app = express();
+  
+  app.use((req, res) => {
+    res.writeHead(200);
+    res.end("hello world\n");
+  });
+  
+  app.listen(portNoHttp);
+  
+  https.createServer(options, app).listen(portNoHttps);
+}
+
+startSecureServer();
+
+//startServer();
