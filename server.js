@@ -171,11 +171,22 @@ function startServer() {
   const app = express();
 
   // Redirect HTTP to HTTPS,
-  app.use(redirectToHTTPS([/localhost:(\d{5})/], [], 301));
+  //app.use(redirectToHTTPS([/localhost:(\d{5})/], [], 301));
   
   //works on serving machine but not android device
   //app.use(redirectToHTTPS([/192.168.0.8:(\d{5})/], [], 301));
-
+  
+  const options = {
+    key: fs.readFileSync("./scratch/server.key"),
+    cert: fs.readFileSync("./scratch/server.crt")
+  };
+  
+  const portNoHttps = 50089;  // stop it interfering w/ asset server!
+  const portNoHttp = 50099;
+  
+  console.log(`ADDED CERTS for https server on port ${portNoHttps}... https://dtk.health:${portNoHttps}/`);
+    
+  
   // Logging for each request
   app.use((req, resp, next) => {
     const now = new Date();
@@ -196,24 +207,29 @@ function startServer() {
   app.use(express.static('public'));
 
   // Start the server
-  var portNo = '50099';
-  return app.listen(portNo, () => {
+  //return app.listen(portNoHttp, () => {
+  app.listen(portNoHttp, () => {
     // eslint-disable-next-line no-console
-    console.log(`Local DevServer Started on port ${portNo}...`);
+    console.log(`Local DevServer Started on port ${portNoHttp}... http://dtk.health:${portNoHttp}/`);
   });
+
+  // https_test
+  https.createServer(options, app).listen(portNoHttps);  
 }
 
-//https_test
+// https_test - this WORKS! -
+// serves https://dtk.health:50089 - hello world using local DNS server
 function startSecureServer(){
   const options = {
     key: fs.readFileSync("./scratch/server.key"),
     cert: fs.readFileSync("./scratch/server.crt")
   };
   
-  const portNoHttps = 8080;
-  const portNoHttp = 8000;
+  const portNoHttps = 50089;  // stop it interfering w/ asset server!
+  const portNoHttp = 50099;
   
-  console.log(`STARTING https server port ${portNoHttps}...`);
+  console.log(`STARTING httpS server port ${portNoHttps}... https://dtk.health:${portNoHttps}/`);
+  console.log(`STARTING http  server port ${portNoHttp}...  http://dtk.health:${portNoHttp}/`);  
   
   const app = express();
   
@@ -227,6 +243,6 @@ function startSecureServer(){
   https.createServer(options, app).listen(portNoHttps);
 }
 
-startSecureServer();
+//startSecureServer(); // https_test - WORKS!
 
-//startServer();
+startServer();
