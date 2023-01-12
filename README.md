@@ -1,7 +1,17 @@
 # pwa_and_offline
-Tutorial to create a PWA web app and understand Service Workers and caching patterns
+Tutorial to create a PWA web app and understand Service Workers and caching patterns and SSL certificates.  
 AIM: add offline capability to web site
-
+  
+#### To start local copy
+```
+% cd /lang/html_css_js/pwa_and_offline
+% npm start
+or
+% node server.js
+ADDED CERTS for https server on port 50089... https://dtk.health:50089/
+Local DevServer Started on port 50099... http://dtk.health:50099/
+```
+  
 ### PWA web app tutorial (not sure how long it will take :/ . . .)
 https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp
 
